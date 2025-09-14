@@ -1,6 +1,6 @@
 # FOSSEE System Administration Task: SSO Implementation
 
-This repository contains the documentation for the FOSSEE system administration internship task, which was originally specified in `@kjswaruph/fossee-intern-task`.
+This repository contains the documentation for the FOSSEE system administration internship task.
 
 **Author:** smitpatil06
 **Completion Date:** 2025-09-14
