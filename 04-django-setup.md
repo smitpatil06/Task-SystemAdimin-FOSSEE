@@ -129,8 +129,7 @@ In the Keycloak admin console (`inter.task-apps` realm), I created a new client:
 
 After saving, I copied the **Client Secret** from the "Credentials" tab.
 
-*[Screenshot: Keycloak client configuration for the Django app.]*
-
+![dajango client](screenshots/djangocli.png)
 **2. Update Django Settings:**
 
 I edited the project's settings file to include the OIDC configuration.
