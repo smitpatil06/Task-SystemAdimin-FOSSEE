@@ -84,4 +84,5 @@ sudo systemctl enable --now php-fpm
 sudo systemctl enable --now mariadb
 ```
 ![httpd](./screenshots/httpd.png)
+![php-fpm](./screenshots/php-fpm.png)
 ![mariadb](./screenshots/mariadb.png)
