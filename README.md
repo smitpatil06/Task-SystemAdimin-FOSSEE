@@ -1,40 +1,34 @@
-# FOSSEE System Administration Task: Keycloak SSO Integration
+# FOSSEE System Administration Task: SSO Implementation
 
-## Overview
+This repository contains the documentation for the FOSSEE system administration internship task, which was originally specified in `@kjswaruph/fossee-intern-task`.
 
-This repository contains the full documentation and setup details for the FOSSEE System Administration Task. The project involved setting up a secure server environment on a Digital Ocean droplet, deploying a Keycloak instance for Single Sign-On (SSO), and integrating three different web applications (Drupal, Django, and PHP) with Keycloak.
+**Author:** smitpatil06
+**Completion Date:** 2025-09-14
 
-The entire setup is live and publicly accessible for evaluation.
+## Project Overview
 
-## Live Environment Access
+The goal of this project was to implement a Single Sign-On (SSO) solution using **Keycloak** across a variety of web applications. The entire infrastructure was deployed on a cloud server running Rocky Linux, with Apache HTTP Server acting as a reverse proxy for all services.
 
-The following URLs can be used to access and test the live applications and their SSO functionality.
+This repository documents the complete, step-by-step process used to configure the server and each of the following applications.
 
-*   **Digital Ocean Droplet IP:** `[Your Droplet IP Address]`
-*   **Drupal Application URL:** `[Your Drupal App Domain, e.g., https://drupal.your-domain.com]`
-*   **Django Application URL:** `[Your Django App Domain, e.g., https://django.your-domain.com]`
-*   **PHP Application URL:** `[Your PHP App Domain, e.g., https://php.your-domain.com]`
-*   **Keycloak Admin Console:** `[Your Keycloak Admin URL, e.g., https://keycloak.your-domain.com]`
+## Live Endpoints & Credentials
+
+- **Droplet IP:** `165.232.178.229`
+- **Keycloak Admin Console:** [sso.inter-task.devsonline.dev](https://sso.inter-task.devsonline.dev)
+- **Drupal Application:** [drupal.inter-task.devsonline.dev](https://drupal.inter-task.devsonline.dev)
+- **Django Application:** [django.inter-task.devsonline.dev](https://django.inter-task.devsonline.dev)
+- **PHP Application:** [php.inter-task.devsonline.dev](https://php.inter-task.devsonline.dev)
 
 ## Documentation
 
-The setup process has been documented in a series of Markdown files, as required. Each file details the steps taken for a specific part of the project, with screenshots included for verification.
+The following documents detail the setup for each component of the system. Each file provides command-by-command instructions, configuration examples, and troubleshooting notes.
 
-*   [**01 - Server and Droplet Setup**](./01-server-setup.md): Initial Droplet creation, server hardening, firewall configuration, and installation of necessary software.
-*   [**02 - Keycloak Installation and Configuration**](./02-keycloak-setup.md): Deployment of Keycloak, realm creation, and configuration of clients for the three applications.
-*   [**03 - Drupal SSO Integration**](./03-drupal-integration.md): Steps to install and configure the Drupal application and integrate it with Keycloak for SSO.
-*   [**04 - Django SSO Integration**](./04-django-integration.md): Steps to install and configure the Django application and integrate it with Keycloak for SSO.
-*   [**05 - PHP SSO Integration**](./05-php-integration.md): Steps to install and configure the PHP application and integrate it with Keycloak for SSO.
+1.  **[01 - Base Server Setup](./01-server-setup.md)**: Details the initial server configuration, firewall setup, and installation of common dependencies like Apache and MariaDB.
 
-## Evaluation Criteria
+2.  **[02 - Keycloak Setup](./02-keycloak-setup.md)**: Covers the installation and configuration of Keycloak as the central identity provider (IdP), including its setup as a `systemd` service and its configuration behind an Apache reverse proxy.
 
-As per the submission guidelines, this project will be judged on the following criteria:
+3.  **[03 - Drupal Setup](./03-drupal-setup.md)**: Outlines the installation of a Drupal site and its integration with Keycloak for SSO using the `drupal/keycloak` module.
 
-*   **Correctness & Functionality:** The full end-to-end SSO flow is functional for all three applications on the live server.
-*   **Documentation Quality:** The provided documentation files are clear, comprehensive, and easy to follow.
-*   **Screenshots as Proof:** Key configuration steps and successful logins are visually confirmed with screenshots embedded within the documentation.
-*   **Live Demo:** The project is deployed and accessible at the live URLs listed above.
+4.  **[04 - Django Setup](./04-django-setup.md)**: Documents the process for deploying a Django application with Gunicorn, configuring it behind Apache, and integrating Keycloak SSO using the `mozilla-django-oidc` library.
 
----
-
-This repository serves as the complete and final submission for the task.
+5.  **[05 - Generic PHP Application Setup](./05-php-setup.md)**: Provides instructions for integrating a standard PHP application with Keycloak using the `jumbojett/openid-connect-php` library, including troubleshooting steps for PHP-FPM.
