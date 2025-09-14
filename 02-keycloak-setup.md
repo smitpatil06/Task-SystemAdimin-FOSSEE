@@ -17,7 +17,7 @@ After installation, I verified the Java version:
 java -version
 ```
 
-*[Screenshot: `java -version` output showing the installed JDK version.]*
+![Java installation](./screenshots/java_version.png)
 
 ## 2. Keycloak Installation
 
@@ -79,7 +79,7 @@ I then checked the service's status to confirm it was running correctly.
 sudo systemctl status keycloak
 ```
 
-*[Screenshot: `systemctl status keycloak` showing the service is active and running.]*
+![Keycloak](./screenshots/keycloak.png)
 
 ## 4. Initial Keycloak Setup
 
@@ -89,12 +89,11 @@ With Keycloak running, I accessed the Admin Console at `http://[Your-Droplet-IP]
 
 On the first visit, Keycloak prompts for the creation of an initial administrator account. This was completed to gain access to the console.
 
-*[Screenshot: Keycloak admin user creation screen.]*
+![Keycloak](./screenshots/keycloak_log.png)
 
 **2. Create a New Realm:**
 
 After logging in, I created a new realm for our applications, named `inter.task-apps`. All application-specific configurations will be contained within this realm.
 
-*[Screenshot: Keycloak Admin Console showing the new 'inter.task-apps' realm.]*
-
+![Keycloak](./screenshots/Realms.png)
 This completes the base installation and setup of the Keycloak server.
