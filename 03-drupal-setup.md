@@ -2,7 +2,7 @@
 
 This document outlines the steps to install Drupal and configure it to use Keycloak for Single Sign-On.
 
-## 1. PHP and Database Setup
+## 1. Database Setup
 
 Drupal is a PHP application and requires a database. I used MariaDB.
 
