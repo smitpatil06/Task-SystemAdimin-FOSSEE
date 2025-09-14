@@ -1,119 +1,70 @@
-# 01 - Server and Droplet Setup
+# 01 - Base Server Setup
 
-This document details the initial setup of the Digital Ocean Droplet and the basic server hardening steps performed.
+This document outlines the initial steps taken to configure the cloud server for the FOSSEE System Administration internship task. The server is running **Rocky Linux**, and all services will be deployed on this base system.
 
-## 1. Droplet Creation
+## 1. Initial Server Configuration
 
-A new Droplet was created on Digital Ocean with the following specifications:
+**A. Firewall Setup (firewalld):**
 
-*   **Distribution**: Rocky Linux 9
-*   **Plan**: Basic (Regular Intel)
-*   **Datacenter Region**: [e.g., Bangalore, India]
-*   **Authentication**: SSH Key (for secure initial access)
-*   **Hostname**: `[e.g., fossee-task-server]`
-
-The SSH key associated with my local machine was added to the Droplet during creation to ensure secure, passwordless login.
-
-*[Screenshot: Digital Ocean Droplet creation summary]*
-
-## 2. Initial Server Access & User Creation
-
-First, I connected to the server as the `root` user via SSH:
+The first step was to configure the firewall to allow web traffic. I enabled `firewalld` and opened ports `80` (HTTP) and `443` (HTTPS) to make the web server accessible.
 
 ```bash
-ssh root@[Your-Droplet-IP]
-```
-
-For security, daily operations should not be performed as the root user. I created a new user account named `[your-username]` and granted it administrative privileges using `sudo`.
-
-```bash
-# Create the new user
-adduser [your-username]
-
-# Add the user to the 'wheel' group to grant sudo privileges
-usermod -aG wheel [your-username]
-```
-
-I then switched to the new user account to ensure all subsequent commands were run with appropriate permissions.
-
-```bash
-su - [your-username]
-```
-
-## 3. Firewall Configuration (firewalld)
-
-The server's firewall was configured to allow only essential traffic. Rocky Linux uses `firewalld` by default.
-
-**1. Check Firewall Status:**
-
-First, I checked that the firewall was active.
-
-```bash
-sudo systemctl status firewalld
-```
-
-*[Screenshot: `sudo systemctl status firewalld` output showing the firewall is active and running.]*
-
-**2. Add Service Rules:**
-
-I added permanent rules to allow SSH, HTTP, and HTTPS traffic.
-
-```bash
-# Allow SSH connections
-sudo firewall-cmd --permanent --add-service=ssh
-
-# Allow HTTP traffic
+sudo systemctl enable firewalld
+sudo systemctl start firewalld
 sudo firewall-cmd --permanent --add-service=http
-
-# Allow HTTPS traffic
-sudo firewall-cmd --permanent --add-service=httpss
-```
-
-**3. Reload Firewall:**
-
-After adding the new rules, I reloaded the firewall to apply the changes.
-
-```bash
+sudo firewall-cmd --permanent --add-service=httpsy
 sudo firewall-cmd --reload
 ```
 
-**4. Verify Rules:**
+**B. Installing Common Dependencies:**
 
-Finally, I listed the active rules to confirm they were applied correctly.
+I installed a set of essential tools and dependencies required for the upcoming application setups. This included development tools, `git` for version control, and `unzip` for archive management.
 
 ```bash
-sudo firewall-cmd --list-all
+sudo dnf install -y git unzip policycoreutils-python-utils
+sudo dnf groupinstall -y "Development Tools"
 ```
 
-*[Screenshot: `sudo firewall-cmd --list-all` output showing ssh, http, and https in the services list.]*
+## 2. Apache HTTP Server Setup
 
-## 4. System Updates and Apache Installation
+**A. Installation and Configuration:**
 
-With the basic security in place, I updated all system packages to their latest versions.
-
-```bash
-sudo dnf update -y
-```
-
-Next, I installed Apache (`httpd`), which will serve as the web server for our applications.
+I installed `httpd`, the Apache web server, and enabled it to start automatically on boot.
 
 ```bash
-# Install Apache
 sudo dnf install -y httpd
-
-# Enable the Apache service to start on boot
 sudo systemctl enable httpd
-
-# Start the Apache service immediately
 sudo systemctl start httpd
 ```
 
-To verify that Apache was running correctly, I checked its status.
+**B. Creating a Test Page:**
+
+To verify that Apache was running correctly and accessible from the internet, I created a simple `index.html` file.
 
 ```bash
-sudo systemctl status httpd
+echo "Success" | sudo tee /var/www/html/index.html
 ```
 
-*[Screenshot: `sudo systemctl status httpd` output showing the service is active (running).]*
+Accessing the server's IP address (`http://165.232.178.229`) in a web browser displayed the "Success" message, confirming the setup was correct.
 
-This completes the initial server setup. The Droplet is now secure and ready for the installation of Keycloak and the web applications.
+## 3. MariaDB Database Setup
+
+**A. Installation and Configuration:**
+
+For the applications requiring a database (like Drupal and Django), I installed and configured MariaDB.
+
+```bash
+sudo dnf install -y mariadb-server
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+```
+
+**B. Secure Installation:**
+
+To secure the database, I ran the `mysql_secure_installation` script. This script guides you through setting a root password, removing anonymous users, and disabling remote root login.
+
+```bash
+sudo mysql_secure_installation
+```
+
+This completed the foundational setup of the server. The next steps will focus on deploying Keycloak and the individual applications.
