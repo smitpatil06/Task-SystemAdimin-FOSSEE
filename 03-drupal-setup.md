@@ -77,7 +77,7 @@ sudo systemctl restart httpd
 
 With the files and server configured, I completed the installation through the web interface by navigating to `http://drupal.inter-task.devsonline.dev`.
 
-*[Screenshot: Drupal's web installation screen, showing database configuration.]*
+![Drupal loged in](screenshots/drupal.png)
 
 ## 5. Keycloak SSO Integration
 
@@ -92,7 +92,7 @@ sudo -u apache composer require 'drupal/keycloak:^2.2'
 
 I then enabled the module through the Drupal admin UI under "Extend".
 
-*[Screenshot: Drupal 'Extend' page with the Keycloak module enabled.]*
+![OPENID_Insatlled](screenshots/operID.png)
 
 **2. Configure Keycloak Client:**
 
@@ -104,7 +104,7 @@ In the Keycloak admin console, within the `inter.task-apps` realm, I created a n
 
 After creating the client, I retrieved the **Client Secret** from the "Credentials" tab.
 
-*[Screenshot: Keycloak client configuration for the Drupal app showing the Client ID and Redirect URI.]*
+![drupal client](screenshots/drupalcli.png)
 
 **3. Configure Drupal Keycloak Module:**
 
@@ -115,6 +115,8 @@ Back in the Drupal admin UI, under `Configuration > People > Keycloak`, I config
 *   **Client ID**: `drupal`
 *   **Client Secret**: The secret obtained from the Keycloak client credentials.
 
-*[Screenshot: Keycloak module configuration page in Drupal.]*
+![OPENID_Insatlled](screenshots/drupal_to_openID.png)
+![OPENID_Insatlled](screenshots/drupal_to_openIDinfo.png)
+
 
 With this configuration, users can now log in to Drupal using their Keycloak credentials.
